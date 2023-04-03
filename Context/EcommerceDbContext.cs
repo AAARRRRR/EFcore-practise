@@ -44,6 +44,11 @@ public class ECommerceDbContext : DbContext
             .HasOne(t => t.Product)
             .WithMany()
             .HasForeignKey(t => t.ProductId);
+        
+        // can seed data when initialize database
+        // modelBuilder.Entity<Customer>()
+        //     .HasData(new Customer { Id = 1, Name = "Avan", PhoneNumber = "11111", Email = "Avan@gmail.com" },
+        //     new Customer  { Id = 2, Name = "Bob", PhoneNumber = "22222", Email = "Bob@gmail.com" });
     }
     
 }
