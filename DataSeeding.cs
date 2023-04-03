@@ -9,9 +9,8 @@ public class DataSeeding
 
     public DataSeeding(ECommerceDbContext eCommerceDbContext)
     {
-        using (var context = eCommerceDbContext)
-        {
-            context.Database.EnsureCreated();
+        var context = eCommerceDbContext;
+        context.Database.EnsureCreated();
 
             var testCustomer = context.Customers.FirstOrDefault(b => b.Id == 1);
             if (testCustomer == null)
@@ -42,7 +41,7 @@ public class DataSeeding
                     new Transaction {CustomerId = 2, ProductId = 1 });
             }
             
-            var testProductDetail = context.ProductDetails.FirstOrDefault(b => b.Id == 1);
+            var testProductDetail = context.ProductDetails.FirstOrDefault(b => b.ProductId == 1);
             if (testProductDetail == null)
             {
                 context.ProductDetails.Add(
@@ -54,4 +53,3 @@ public class DataSeeding
             context.SaveChanges();
         }
     }
-}
