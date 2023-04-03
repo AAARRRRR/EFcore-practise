@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace EFcore_practise2.Entities;
 
@@ -20,7 +21,9 @@ public class ECommerceDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         const string connectionString = "Data Source=127.0.0.1,1433;Initial Catalog=master;User Id=sa;Password=MyPass@word;TrustServerCertificate=True;MultiSubnetFailover=True;";
-        optionsBuilder.UseSqlServer(connectionString);
+        optionsBuilder.UseLazyLoadingProxies()
+            .UseSqlServer(connectionString)
+            .LogTo(Console.WriteLine, LogLevel.Information);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

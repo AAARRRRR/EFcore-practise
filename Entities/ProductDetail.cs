@@ -6,5 +6,5 @@ public class ProductDetail
     
     public int  ProductId { get; set; }
     public string Description { get; set; }
-    public Product Product { get; set; }
+    public virtual Product Product { get; set; }
 }
