@@ -2,8 +2,14 @@
 using EFcore_practise2.Entities;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
-var dbcontext = new ECommerceDbContext();
+// var dbcontext = new ECommerceDbContext();
+var services = new ServiceCollection();
+services.AddDbContextPool<ECommerceDbContext>(options => options.UseSqlServer("Data Source=127.0.0.1,1433;Initial Catalog=master;" +
+"User Id=sa;Password=MyPass@word;TrustServerCertificate=True;MultiSubnetFailover=True;"));
+var serviceProvider = services.BuildServiceProvider();
+var dbcontext = serviceProvider.GetRequiredService<ECommerceDbContext>();
 var dataSeeding =  new DataSeeding(dbcontext);
 
 //Query
@@ -42,14 +48,14 @@ foreach (var transaction in transactions)
 dbcontext.SaveChanges();
 
 //use sql connectionPool
-using var connection = new SqlConnection(
-    "Data Source=127.0.0.1,1433;Initial Catalog=master;" +
-    "User Id=sa;Password=MyPass@word;TrustServerCertificate=True;MultiSubnetFailover=True;");
-connection.Open();
-var command =
-    new SqlCommand("INSERT INTO Customers (Name, Email, PhoneNumber) VALUES ('Calvin', 'Calvin@123.com', '333')",connection);
-var command2 =
-    new SqlCommand("INSERT INTO Transactions (ProductId, CustomerId) VALUES (1, 3)",connection);
-command.ExecuteNonQuery();
-command2.ExecuteNonQuery();
-connection.Close();
+// using var connection = new SqlConnection(
+//     "Data Source=127.0.0.1,1433;Initial Catalog=master;" +
+//     "User Id=sa;Password=MyPass@word;TrustServerCertificate=True;MultiSubnetFailover=True;");
+// connection.Open();
+// var command =
+//     new SqlCommand("INSERT INTO Customers (Name, Email, PhoneNumber) VALUES ('Calvin', 'Calvin@123.com', '333')",connection);
+// var command2 =
+//     new SqlCommand("INSERT INTO Transactions (ProductId, CustomerId) VALUES (1, 3)",connection);
+// command.ExecuteNonQuery();
+// command2.ExecuteNonQuery();
+// connection.Close();
