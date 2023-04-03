@@ -36,7 +36,7 @@ public class ECommerceDbContext : DbContext
         modelBuilder.Entity<ProductDetail>()
             .HasOne(d => d.Product)
             .WithOne( p => p.ProductDetail)
-            .HasForeignKey<ProductDetail>(d => d.Id);
+            .HasForeignKey<ProductDetail>(d => d.ProductId);
             
         modelBuilder.Entity<Transaction>()
             .HasKey(t => t.Id);

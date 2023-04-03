@@ -1,3 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using EFcore_practise2;
+using EFcore_practise2.Entities;
 
-Console.WriteLine("Hello, World!");
+var dbcontext = new ECommerceDbContext();
+var dataSeeding =  new DataSeeding(dbcontext);
